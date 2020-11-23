@@ -12,8 +12,9 @@ firebase.initializeApp(config);
 var today = new Date().toLocaleString("sv", {timeZone: "America/Los_Angeles"}).slice(0, 10);
 var date = today;
 var features = [];
+var view;
 
-function drawMap(features, date) {
+function drawMap(view, features, date) {
     require([
         "esri/Map",
         "esri/views/MapView",
@@ -43,7 +44,7 @@ function drawMap(features, date) {
                  Search
     ) {
 
-        var view = new MapView({
+        view = new MapView({
             container: "viewDiv",
             map: new Map({
                 basemap: "topo-vector",
@@ -172,6 +173,7 @@ function drawMap(features, date) {
             var len = features.length;
             var tbody = document.getElementById("tbody");
             tbody.innerHTML = "";
+
             for (var i = 0; i < len; i++) {
                 var row = getDataRow(features[i].attributes);
                 tbody.appendChild(row);
@@ -231,4 +233,4 @@ function drawMap(features, date) {
     });
 }
 
-drawMap(features, date);
+drawMap(view, features, date);
