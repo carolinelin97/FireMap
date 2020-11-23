@@ -12,8 +12,43 @@ firebase.initializeApp(config);
 var today = new Date().toLocaleString("sv", {timeZone: "America/Los_Angeles"}).slice(0, 10);
 var date = today;
 var features = [];
+var view;
 
-function drawMap(features, date) {
+async function getData(callbackIN, date) {
+    var ref = firebase.database().ref(date); //change to today
+    ref.once('value').then(function (snapshot) {
+        callbackIN(snapshot.val())
+    })
+};
+
+function getFunction(data) {
+    var i = 1;
+    Object.entries(data).forEach(([inst, valu]) => {
+        features.push({
+            geometry: {type: "point", x: valu.Longitude, y: valu.Latitude},
+            attributes: {
+                ObjectID: i,
+                IncidentID: inst,
+                IncidentName: valu.IncidentName,
+                City: valu.City,
+                County: valu.County,
+                State: valu.State,
+                DiscoveryAcres: valu.DiscoveryAcres,
+                DailyAcres: valu.DailyAcres || "Unknown",
+                FireCause: valu.FireCause || "Unknown",
+                FireDiscoveryDateTime: valu.FireDiscoveryDateTime || "Unknown",
+                InitialResponseAcres: valu.InitialResponseAcres || "Unknown",
+                PercentContained: valu.PercentContained || "Unknown",
+                ContainmentDateTime: valu.ContainmentDateTime || "Unknown",
+                ControlDateTime: valu.ControlDateTime || "Unknown"
+            }
+        });
+        i += 1
+    })
+};
+
+
+function drawMap(view, features, date) {
     require([
         "esri/Map",
         "esri/views/MapView",
@@ -43,7 +78,7 @@ function drawMap(features, date) {
                  Search
     ) {
 
-        var view = new MapView({
+        view = new MapView({
             container: "viewDiv",
             map: new Map({
                 basemap: "topo-vector",
@@ -69,47 +104,13 @@ function drawMap(features, date) {
 
         view.ui.add(search, "top-right");
 
-        function getData(callbackIN) {
-            var ref = firebase.database().ref(date); //change to today
-            ref.once('value').then(function (snapshot) {
-                callbackIN(snapshot.val())
-            })
-                .then(createFeatureLayer)
-                .then(addToView)
-                .then(addToTable)
-                .catch(function (e) {
-                    console.error("Creating FeatureLayer from photos failed", e);
-                });
-        };
-
-        function genFunction(data) {
-            var i = 1;
-            Object.entries(data).forEach(([inst, valu]) => {
-                features.push({
-                    geometry: {type: "point", x: valu.Longitude, y: valu.Latitude},
-                    attributes: {
-                        ObjectID: i,
-                        IncidentID: inst,
-                        IncidentName: valu.IncidentName,
-                        City: valu.City,
-                        County: valu.County,
-                        State: valu.State,
-                        DiscoveryAcres: valu.DiscoveryAcres,
-                        DailyAcres: valu.DailyAcres || "Unknown",
-                        FireCause: valu.FireCause || "Unknown",
-                        FireDiscoveryDateTime: valu.FireDiscoveryDateTime || "Unknown",
-                        InitialResponseAcres: valu.InitialResponseAcres || "Unknown",
-                        PercentContained: valu.PercentContained || "Unknown",
-                        ContainmentDateTime: valu.ContainmentDateTime || "Unknown",
-                        ControlDateTime: valu.ControlDateTime || "Unknown"
-                    }
-                });
-                i += 1
-            })
-        };
-
         view.when()
-            .then(getData(genFunction));
+            .then(createFeatureLayer)
+            .then(addToView)
+            .then(addToTable)
+            .catch(function (e) {
+                console.error("Creating FeatureLayer from photos failed", e);
+            });
 
         function createFeatureLayer() {
             var fireLayer = new FeatureLayer({
@@ -178,57 +179,60 @@ function drawMap(features, date) {
             }
         }
 
-        function getDataRow(row) {
-            var tr = document.createElement("tr");
-
-            var td0 = document.createElement("td");
-            td0.innerHTML = row.ObjectID;
-            tr.appendChild(td0);
-            var td1 = document.createElement("td");
-            td1.innerHTML = row.IncidentName;
-            tr.appendChild(td1);
-            var td2 = document.createElement("td");
-            td2.innerHTML = row.IncidentID;
-            tr.appendChild(td2);
-            var td3 = document.createElement("td");
-            td3.innerHTML = row.DailyAcres;
-            tr.appendChild(td3);
-
-            var td4 = document.createElement("td");
-            td4.innerHTML = row.DiscoveryAcres;
-            tr.appendChild(td4);
-            var td5 = document.createElement("td");
-            td5.innerHTML = row.FireCause;
-            tr.appendChild(td5);
-            var td6 = document.createElement("td");
-            td6.innerHTML = row.FireDiscoveryDateTime;
-            tr.appendChild(td6);
-            var td7 = document.createElement("td");
-            td7.innerHTML = row.InitialResponseAcres;
-            tr.appendChild(td7);
-            var td8 = document.createElement("td");
-            td8.innerHTML = row.City;
-            tr.appendChild(td8);
-            var td9 = document.createElement("td");
-            td9.innerHTML = row.County;
-            tr.appendChild(td9);
-            var td10 = document.createElement("td");
-            td10.innerHTML = row.State;
-            tr.appendChild(td10);
-            var td11 = document.createElement("td");
-            td11.innerHTML = row.ContainmentDateTime;
-            tr.appendChild(td11);
-            var td12 = document.createElement("td");
-            td12.innerHTML = row.PercentContained;
-            tr.appendChild(td12);
-            var td13 = document.createElement("td");
-            td13.innerHTML = row.ControlDateTime;
-            tr.appendChild(td13);
-
-            return tr;
-        }
-
     });
 }
 
-drawMap(features, date);
+
+
+function getDataRow(row) {
+    var tr = document.createElement("tr");
+
+    var td0 = document.createElement("td");
+    td0.innerHTML = row.ObjectID;
+    tr.appendChild(td0);
+    var td1 = document.createElement("td");
+    td1.innerHTML = row.IncidentName;
+    tr.appendChild(td1);
+    var td2 = document.createElement("td");
+    td2.innerHTML = row.IncidentID;
+    tr.appendChild(td2);
+    var td3 = document.createElement("td");
+    td3.innerHTML = row.DailyAcres;
+    tr.appendChild(td3);
+
+    var td4 = document.createElement("td");
+    td4.innerHTML = row.DiscoveryAcres;
+    tr.appendChild(td4);
+    var td5 = document.createElement("td");
+    td5.innerHTML = row.FireCause;
+    tr.appendChild(td5);
+    var td6 = document.createElement("td");
+    td6.innerHTML = row.FireDiscoveryDateTime;
+    tr.appendChild(td6);
+    var td7 = document.createElement("td");
+    td7.innerHTML = row.InitialResponseAcres;
+    tr.appendChild(td7);
+    var td8 = document.createElement("td");
+    td8.innerHTML = row.City;
+    tr.appendChild(td8);
+    var td9 = document.createElement("td");
+    td9.innerHTML = row.County;
+    tr.appendChild(td9);
+    var td10 = document.createElement("td");
+    td10.innerHTML = row.State;
+    tr.appendChild(td10);
+    var td11 = document.createElement("td");
+    td11.innerHTML = row.ContainmentDateTime;
+    tr.appendChild(td11);
+    var td12 = document.createElement("td");
+    td12.innerHTML = row.PercentContained;
+    tr.appendChild(td12);
+    var td13 = document.createElement("td");
+    td13.innerHTML = row.ControlDateTime;
+    tr.appendChild(td13);
+
+    return tr;
+}
+
+getData(getFunction, date)
+    .then(drawMap(view, features, date));
