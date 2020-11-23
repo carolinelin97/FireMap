@@ -8,9 +8,9 @@ require([
     "esri/geometry/Point",
     "esri/tasks/Locator",
     "esri/Color",
-    // "esri/renderers/SimpleRenderer",
-    // "esri/symbols/TextSymbol",
-    // "esri/symbols/Font",
+    "esri/renderers/SimpleRenderer",
+    "esri/symbols/TextSymbol",
+    "esri/symbols/Font",
     "esri/widgets/Search"
 ], function(Map,
             MapView,
@@ -21,9 +21,9 @@ require([
             Point,
             Locator,
             Color,
-            // SimpleRenderer,
-            // TextSymbol,
-            // Font,
+            SimpleRenderer,
+            TextSymbol,
+            Font,
             Search
 ) {
 
@@ -89,7 +89,7 @@ require([
         .then(getData(genFunction));
 
     function createFeatureLayer() {
-        return new FeatureLayer({
+        var fireLayer = new FeatureLayer({
             source: features,  // array of graphics objects
             objectIdField: "ObjectID",
             fields: [
@@ -137,6 +137,17 @@ require([
                 }
             }
         });
+        search.sources.push({
+            layer: fireLayer,
+            searchFields: ["IncidentName"],
+            displayField: "IncidentName",
+            exactMatch: false,
+            outFields: ["IncidentName"],
+            resultGraphicEnabled: true,
+            name: "Incident Name",
+        });
+        view.ui.add(search, "top-right");
+        return fireLayer;
     }
 
     // Adds a given layer to the map in the view
