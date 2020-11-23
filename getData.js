@@ -182,8 +182,6 @@ function drawMap(view, features, date) {
     });
 }
 
-
-
 function getDataRow(row) {
     var tr = document.createElement("tr");
 
