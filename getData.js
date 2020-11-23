@@ -8,6 +8,17 @@ var config = {
     appId: "1:195705209280:web:c1ed6135f37c06a2254825"
 };
 
+// function addToTable(features) {
+//     var len = features.length;
+//     var tbody = document.getElementById("tbody");
+//     tbody.innerHTML = "";
+//
+//     for (var i = 0; i < len; i++) {
+//         var row = getDataRow(features[i].attributes);
+//         tbody.appendChild(row);
+//     }
+// }
+
 firebase.initializeApp(config);
 var today = new Date().toLocaleString("sv", {timeZone: "America/Los_Angeles"}).slice(0, 10);
 var date = today;
@@ -75,12 +86,13 @@ function drawMap(view, features, date) {
             ref.once('value').then(function (snapshot) {
                 callbackIN(snapshot.val())
             })
+                .then(checkFeatures)
                 .then(createFeatureLayer)
                 .then(addToView)
                 .then(addToTable)
-                .catch(function (e) {
-                    console.error("Creating FeatureLayer from photos failed", e);
-                });
+                // .catch(function (e) {
+                //     console.error("Creating FeatureLayer from photos failed", e);
+                // });
         };
 
         function genFunction(data) {
@@ -111,6 +123,15 @@ function drawMap(view, features, date) {
 
         view.when()
             .then(getData(genFunction));
+
+        function checkFeatures(){
+            if (features.length == 0){
+                addToTable();
+            }
+            else {
+                return features;
+            }
+        }
 
         function createFeatureLayer() {
             var fireLayer = new FeatureLayer({
@@ -233,4 +254,5 @@ function drawMap(view, features, date) {
     });
 }
 
-drawMap(view, features, date);
+drawMap(view, features, date)
+    // .then(addToTable(features));
