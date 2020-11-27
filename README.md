@@ -1,7 +1,8 @@
-# FireMap
-California Wildfire Map
+# Wildfire Monitoring System
+## DSCI 551 Final Project
 
-See no-async branch.
+Github Page: [Wildfire Monitoring System](https://carolinelin97.github.io/FireMap)
+Github Repo: See no-async branch.
 
 ### Data Sets:
 1) [Wildland Fire Open Data](https://data-nifc.opendata.arcgis.com/datasets/incident-3)
