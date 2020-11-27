@@ -8,17 +8,6 @@ var config = {
     appId: "1:195705209280:web:c1ed6135f37c06a2254825"
 };
 
-// function addToTable(features) {
-//     var len = features.length;
-//     var tbody = document.getElementById("tbody");
-//     tbody.innerHTML = "";
-//
-//     for (var i = 0; i < len; i++) {
-//         var row = getDataRow(features[i].attributes);
-//         tbody.appendChild(row);
-//     }
-// }
-
 firebase.initializeApp(config);
 var today = new Date().toLocaleString("sv", {timeZone: "America/Los_Angeles"}).slice(0, 10);
 var date = today;
@@ -216,7 +205,6 @@ function drawMap(view, features, date) {
             var td3 = document.createElement("td");
             td3.innerHTML = row.DailyAcres;
             tr.appendChild(td3);
-
             var td4 = document.createElement("td");
             td4.innerHTML = row.DiscoveryAcres;
             tr.appendChild(td4);
@@ -247,10 +235,8 @@ function drawMap(view, features, date) {
             var td13 = document.createElement("td");
             td13.innerHTML = row.ControlDateTime;
             tr.appendChild(td13);
-
             return tr;
         }
-
     });
 }
 

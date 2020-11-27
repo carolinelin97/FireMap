@@ -1,8 +1,7 @@
 function changeDate(e) {
     var date = e.target.value;
     var features = [];
-    drawMap(view, features, date)
-        // .then(addToTable(features));
+    drawMap(view, features, date);
 }
 
 function searchFunction() {
@@ -34,3 +33,8 @@ function searchFunction() {
         }
     };
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('date').value = date;
+}, false);
