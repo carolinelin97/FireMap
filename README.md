@@ -1,5 +1,5 @@
 # Wildfire Monitoring System
-## DSCI 551 Final Project
+**DSCI 551 Final Project**
 
 Github Page: [Wildfire Monitoring System](https://carolinelin97.github.io/FireMap)
 
