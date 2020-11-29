@@ -17,17 +17,6 @@ var view;
 var url = 'http://4de639217b0f.ngrok.io/data?date='+date
 var httpRequest = new XMLHttpRequest();
 
-function getSummaryData(){
-    httpRequest.open("POST",url,false);
-    httpRequest.onreadystatechange = ()=>{
-        if(httpRequest.readyState == 4 && httpRequest.status == 0){
-            var json = JSON.parse(httpRequest.responseText);
-            alert(json);
-        }
-    }
-    httpRequest.send();
-}
-
 
 function drawMap(view, features, date) {
     require([
@@ -95,7 +84,7 @@ function drawMap(view, features, date) {
                 .then(addToView)
                 .then(addToTable)
                 .then(getSummaryData)
-                .then(addToSummary)
+                // .then(addToSummary)
                 // .catch(function (e) {
                 //     console.error("Creating FeatureLayer from photos failed", e);
                 // });
@@ -125,7 +114,9 @@ function drawMap(view, features, date) {
                 });
                 i += 1
             })
-        };
+        }
+
+
 
         view.when()
             .then(getData(genFunction));
@@ -256,8 +247,25 @@ function drawMap(view, features, date) {
             return tr;
         }
 
-        function addToSummary(){
-            var data = {"Los Angeles": 25, "San Bernardino": 1, "Butte": 3, "Siskiyou": 2, "Tulare": 6};
+        function getSummaryData(){
+            var url = 'http://4de639217b0f.ngrok.io/data?date='+date
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.open("POST",url,true);
+            httpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            httpRequest.setRequestHeader("Access-Control-Allow-Origin", '*');
+            httpRequest.setRequestHeader("Access-Control-Allow-Headers", 'x-requested-with');
+            httpRequest.setRequestHeader("Access-Control-Allow-Methods", 'OPTIONS,POST,GET');
+            httpRequest.setRequestHeader("Access-Control-Allow-Credentials", true);
+            httpRequest.onreadystatechange = ()=>{
+                if(httpRequest.readyState == 4 && httpRequest.status == 200){
+                    var data = eval(httpRequest.responseText);
+                    addToSummary(data);
+                }
+            }
+            httpRequest.send();
+        }
+
+        function addToSummary(data){
             var groupbody = document.getElementById("groupbody");
             var idx_group = 1;
             groupbody.innerHTML = "";
@@ -268,10 +276,10 @@ function drawMap(view, features, date) {
                 td0.innerHTML = idx_group;
                 tr.appendChild(td0);
                 var td1 = document.createElement("td");
-                td1.innerHTML = val;
+                td1.innerHTML = data[val][0];
                 tr.appendChild(td1);
                 var td2 = document.createElement("td");
-                td2.innerHTML = data[val];
+                td2.innerHTML = data[val][1];
                 tr.appendChild(td2);
                 idx_group += 1;
 
