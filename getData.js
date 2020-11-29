@@ -14,7 +14,7 @@ var date = today;
 var features = [];
 var view;
 
-var url = 'http://192.168.121.177:8090/data?date="2020-11-25"'
+var url = 'http://4de639217b0f.ngrok.io/data?date='+date
 var httpRequest = new XMLHttpRequest();
 
 function getSummaryData(){
