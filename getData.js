@@ -14,6 +14,21 @@ var date = today;
 var features = [];
 var view;
 
+var url = 'http://192.168.121.177:8090/data?date="2020-11-25"'
+var httpRequest = new XMLHttpRequest();
+
+function getSummaryData(){
+    httpRequest.open("POST",url,false);
+    httpRequest.onreadystatechange = ()=>{
+        if(httpRequest.readyState == 4 && httpRequest.status == 0){
+            var json = JSON.parse(httpRequest.responseText);
+            alert(json);
+        }
+    }
+    httpRequest.send();
+}
+
+
 function drawMap(view, features, date) {
     require([
         "esri/Map",
@@ -71,7 +86,7 @@ function drawMap(view, features, date) {
         view.ui.add(search, "top-right");
 
         function getData(callbackIN) {
-            var ref = firebase.database().ref(date); //change to today
+            var ref = firebase.database().ref(date);
             ref.once('value').then(function (snapshot) {
                 callbackIN(snapshot.val())
             })
@@ -79,6 +94,8 @@ function drawMap(view, features, date) {
                 .then(createFeatureLayer)
                 .then(addToView)
                 .then(addToTable)
+                .then(getSummaryData)
+                .then(addToSummary)
                 // .catch(function (e) {
                 //     console.error("Creating FeatureLayer from photos failed", e);
                 // });
@@ -188,6 +205,7 @@ function drawMap(view, features, date) {
                 var row = getDataRow(features[i].attributes);
                 tbody.appendChild(row);
             }
+
         }
 
         function getDataRow(row) {
@@ -236,6 +254,29 @@ function drawMap(view, features, date) {
             td13.innerHTML = row.ControlDateTime;
             tr.appendChild(td13);
             return tr;
+        }
+
+        function addToSummary(){
+            var data = {"Los Angeles": 25, "San Bernardino": 1, "Butte": 3, "Siskiyou": 2, "Tulare": 6};
+            var groupbody = document.getElementById("groupbody");
+            var idx_group = 1;
+            groupbody.innerHTML = "";
+
+            for (var val in data) {
+                var tr = document.createElement("tr");
+                var td0 = document.createElement("td");
+                td0.innerHTML = idx_group;
+                tr.appendChild(td0);
+                var td1 = document.createElement("td");
+                td1.innerHTML = val;
+                tr.appendChild(td1);
+                var td2 = document.createElement("td");
+                td2.innerHTML = data[val];
+                tr.appendChild(td2);
+                idx_group += 1;
+
+                groupbody.appendChild(tr);
+            }
         }
     });
 }
