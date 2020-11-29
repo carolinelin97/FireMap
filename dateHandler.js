@@ -1,20 +1,40 @@
 function changeDate(e) {
     var date = e.target.value;
-    features = [];
-    getData(getFunction, date)
-        .then(drawMap(view, features, date));
-
-    // getData(getFunction, date)
-    //     .then(changeGraphics(features));
+    var features = [];
+    drawMap(view, features, date);
 }
 
-// function changeGraphics(graphics){
-//     var addEdits = {
-//         addFeatures: graphics
-//     };
-//     require(["esri/Map",
-//         "esri/views/MapView",], function (map, view){
-//         view.map.layers.applyEdits(addEdits);
-//     })
-//
-// }
+function searchFunction() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("searchvalue");
+    filter = input.value.toUpperCase();
+
+    table = document.getElementById("querytable");
+    let content = table.getElementsByTagName("tbody")[0];
+    tr = content.getElementsByTagName("tr");
+    console.log(tr.length)
+
+    for (i = 0; i < tr.length; i++) {
+        tds = tr[i].getElementsByTagName("td");
+        flag = 0;
+        if (tds) {
+            console.log(filter)
+            for (j=0;j<tds.length;j++) {
+                td = tds.item(j);
+                if (td.innerHTML.toUpperCase().includes(filter)) {//.indexOf(filter) > -1) {
+                    flag = 1;
+                }
+            }
+            if (flag==1){
+                tr[i].style.display = "";
+            }else {
+                tr[i].style.display = "none";
+            }
+        }
+    };
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('date').value = date;
+}, false);
