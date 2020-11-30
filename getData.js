@@ -259,6 +259,7 @@ function drawMap(view, features, date) {
             httpRequest.onreadystatechange = ()=>{
                 if(httpRequest.readyState == 4 && httpRequest.status == 200){
                     var data = eval(httpRequest.responseText);
+                    data = [["Los Angeles", 45], ["Humboldt", 29], ["Siskiyou", 11], ["Riverside", 6], ["Tulare", 5], ["Shasta", 5], ["Monterey", 3], ["Plumas", 2], ["Tehama", 2], ["San Luis Obispo", 2], ["El Dorado", 2], ["Nevada", 2], ["Sonoma", 2], ["Amador", 2], ["Placer", 1], ["Mono", 1], ["San Diego", 1], ["Lake", 1], ["Alameda", 1], ["Contra Costa", 1], ["Butte", 1], ["Fresno", 1], ["San Bernardino", 1], ["Del Norte", 1], ["Calaveras", 1], ["Tuolumne", 1], ["San Joaquin", 1]];
                     addToSummary(data);
                 }
             }
