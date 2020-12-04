@@ -5,6 +5,8 @@ Github Page: [Wildfire Monitoring System](https://carolinelin97.github.io/FireMa
 
 Github Repo: See no-async branch.
 
+Report: [link](https://github.com/carolinelin97/FireMap/blob/no-async/report.pdf)
+
 ### Data Sets:
 1) [Wildland Fire Open Data](https://data-nifc.opendata.arcgis.com/datasets/incident-3)
 The data set describes the location, spreading, cause, etc. of current wildfire all over the United States. It is updated every 5 minutes.
