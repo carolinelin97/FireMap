@@ -37,18 +37,7 @@ We set up a local server to query the data from RDS, and filter the fires whose 
 ### Project Member:
 #### Jiaying Wang (Applied Data Science):
 
-*LinkedIn: [https://www.linkedin.com/in/jiaying-wang-161694176](https://www.linkedin.com/in/jiaying-wang-161694176)*
-
-*Skills: Data Visualization, Data Analysis, Machine Learning, NLP, Spark*
-
-*Work Accomplished:*
-
-*1.  Built up a pipeline with Spark to preprocess and integrate two different data structures and uploaded to the firebase database.*
-
-*2.  Maintained the firebase database, synchronized it to AWS RDS and updated them everyday.*
-
-*3.  Implemented the search function on our HTML web page to navigate raw data.*
-
+*LinkedIn: [https://www.linkedin.com/in/jiaying-wang-161694176](https://www.linkedin.com/in/jiaying-wang-161694176)<br />Skills: Data Visualization, Data Analysis, Machine Learning, NLP, Spark<br />Work Accomplished:<br />1.  Built up a pipeline with Spark to preprocess and integrate two different data structures and uploaded to the firebase database.<br />2.  Maintained the firebase database, synchronized it to AWS RDS and updated them everyday.<br />3.  Implemented the search function on our HTML web page to navigate raw data.*
 
 
 #### Yanan Lin (Computer Science (Multimedia and Creative Technology)):
