@@ -19,19 +19,19 @@ The data set describes the location, spreading, cause, etc. of current wildfire 
 The data set includes location information of all the cities in the US (e.g. city, country, state, latitude, longitude, population, timezone, zip code, etc.)
 
 ### Implementation:
-#### Data Resource: 
+**1. Data Resource**: 
 Our raw data are from 2 data resources. One is in json file format, the other in csv file format. We used Spark RDD to build a pipeline to preprocess and integrate two files.
 
-#### Database: 
+**2. Database**: 
 We used two databases to store our data. One is a relational database AWS RDS and the other is Firebase Realtime Database. We maintained these two databases everyday to keep updated to the latest wildfire status.
 
-#### Data visualization:
+**3. Data visualization**:
 We used ArcGIS (Geographic Information System) web API to draw our map. It shows the most current active wildfires in California. It has a popup table that shows up with the related attributes of chosen fire, a search box that allows users to search for individual fire and locate it with its name.
 
-#### Searching and Exploring:
+**4. Searching and Exploring**:
 We created a table that presents all the raw data retrieved from the firebase. A date input and a search box allows users to explore raw data. These ‘on change’ functions will update the map and the table on a chosen day or with a certain value in real time. Users could search a location to find nearby wildfires or search an incident name to find its location.
 
-#### Aggregation:
+**5. Aggregation**:
 We set up a local server to query the data from RDS, and filter the fires whose Percent Contained are smaller than 100 percent, which means fires are not completely controlled. At the same time we query ‘group by city’ data from SQL by date. In this way we can show how many fires are in one city. We use Network Address Translator to allow users to access our back-end. Due to GitHub page security technical restrictions, we are not able to connect our back end, resulting the failure of updating the summary table in real-time.
 
 
