@@ -34,4 +34,20 @@ We created a table that presents all the raw data retrieved from the firebase. A
 **5. Aggregation**:
 We set up a local server to query the data from RDS, and filter the fires whose Percent Contained are smaller than 100 percent, which means fires are not completely controlled. At the same time we query ‘group by city’ data from SQL by date. In this way we can show how many fires are in one city. We use Network Address Translator to allow users to access our back-end. Due to GitHub page security technical restrictions, we are not able to connect our back end, resulting the failure of updating the summary table in real-time.
 
+### Project Member:
+**Jiaying Wang** (Applied Data Science):
 
+*LinkedIn: [https://www.linkedin.com/in/jiaying-wang-161694176](https://www.linkedin.com/in/jiaying-wang-161694176)*
+*Skills: Data Visualization, Data Analysis, Machine Learning, NLP, Spark*
+*Work Accomplished:*
+*1.  Built up a pipeline with Spark to preprocess and integrate two different data structures and uploaded to the firebase database.*
+*2.  Maintained the firebase database, synchronized it to AWS RDS and updated them everyday.*
+*3.  Implemented the search function on our HTML web page to navigate raw data.*
+
+**Yanan Lin** (Computer Science (Multimedia and Creative Technology)):
+*LinkedIn: [https://linkedin.com/in/yanan-lin](https://linkedin.com/in/yanan-lin)*
+*Skills: Full Stack, Computer Graphics*
+*Work Accomplished:*
+*1. Engineered HTML web page and basic functionality, designed front end UI, and published to GitHub.*
+*2. Created GIS map module to receive and visualize wildfire geographic data.*
+*3. Generated table to present raw data.*
