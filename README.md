@@ -5,7 +5,7 @@ Github Page: [Wildfire Monitoring System](https://carolinelin97.github.io/FireMa
 
 Github Repo: See no-async branch.
 
-Report: [link](https://github.com/carolinelin97/FireMap/blob/no-async/report.pdf)
+Report: [link](https://github.com/carolinelin97/FireMap/blob/demo/report_demo.pdf)
 
 ### Data Sets:
 1) [Wildland Fire Open Data](https://data-nifc.opendata.arcgis.com/datasets/incident-3)
