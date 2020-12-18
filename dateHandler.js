@@ -1,8 +1,8 @@
-function changeDate(e) {
-    var date = e.target.value;
-    var features = [];
-    drawMap(view, features, date);
-}
+// function changeDate(e) {
+//     var date = e.target.value;
+//     var features = [];
+//     drawMap(view, features, date);
+// }
 
 function searchFunction() {
     var input, filter, table, tr, td, i;
