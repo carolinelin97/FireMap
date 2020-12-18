@@ -38,16 +38,28 @@ We set up a local server to query the data from RDS, and filter the fires whose 
 **Jiaying Wang** (Applied Data Science):
 
 *LinkedIn: [https://www.linkedin.com/in/jiaying-wang-161694176](https://www.linkedin.com/in/jiaying-wang-161694176)*
+
 *Skills: Data Visualization, Data Analysis, Machine Learning, NLP, Spark*
+
 *Work Accomplished:*
+
 *1.  Built up a pipeline with Spark to preprocess and integrate two different data structures and uploaded to the firebase database.*
+
 *2.  Maintained the firebase database, synchronized it to AWS RDS and updated them everyday.*
+
 *3.  Implemented the search function on our HTML web page to navigate raw data.*
 
+
 **Yanan Lin** (Computer Science (Multimedia and Creative Technology)):
+
 *LinkedIn: [https://linkedin.com/in/yanan-lin](https://linkedin.com/in/yanan-lin)*
+
 *Skills: Full Stack, Computer Graphics*
+
 *Work Accomplished:*
+
 *1. Engineered HTML web page and basic functionality, designed front end UI, and published to GitHub.*
+
 *2. Created GIS map module to receive and visualize wildfire geographic data.*
+
 *3. Generated table to present raw data.*
